@@ -16,9 +16,8 @@ const Login = ({ onSwitch }) => {
     
     try {
       const res = await api.post('/auth/login', { email, password })
-      console.log('LOGIN RESPONSE:', res.data)
       login(res.data.token, res.data.user)
-      alert('Login successful')
+      // Note: You might want to replace alert with a toast later
     } catch (err) {
       setMessage(err.response?.data?.message || 'Login failed')
     } finally {
@@ -27,54 +26,50 @@ const Login = ({ onSwitch }) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-blue-100">
-            <svg className="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="min-h-screen flex items-center justify-center bg-brand-bg py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 animate-fade-in">
+        <div className="text-center">
+          <div className="mx-auto h-14 w-14 flex items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary shadow-sm">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
             </svg>
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+          <h2 className="mt-6 text-3xl font-bold tracking-tight text-slate-900">
+            Welcome Back
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-sm text-slate-600">
             Access your video sensitivity dashboard
           </p>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="bg-white py-8 px-6 shadow-lg rounded-lg">
-            <div className="space-y-4">
+        <form className="mt-8" onSubmit={handleSubmit}>
+          <div className="bg-brand-card py-10 px-8 shadow-soft rounded-2xl border border-slate-100 card-hover">
+            <div className="space-y-5">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">
                   Email address
                 </label>
                 <input
                   id="email"
-                  name="email"
                   type="email"
-                  autoComplete="email"
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Enter your email"
+                  className="mt-1 block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus-ring transition-all"
+                  placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="block text-sm font-semibold text-slate-700 mb-1">
                   Password
                 </label>
                 <input
                   id="password"
-                  name="password"
                   type="password"
-                  autoComplete="current-password"
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Enter your password"
+                  className="mt-1 block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus-ring transition-all"
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -82,20 +77,20 @@ const Login = ({ onSwitch }) => {
             </div>
 
             {message && (
-              <div className="mt-4 p-3 rounded-md text-sm bg-red-50 text-red-800 border border-red-200">
+              <div className="mt-5 p-3 rounded-xl text-sm bg-red-50 text-red-600 border border-red-100 font-medium">
                 {message}
               </div>
             )}
 
-            <div className="mt-6">
+            <div className="mt-8">
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+                className={`w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white transition-all duration-200 ${
                   isLoading 
-                    ? 'bg-gray-400 cursor-not-allowed' 
-                    : 'bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
-                } transition-colors duration-200`}
+                    ? 'bg-slate-400 cursor-not-allowed' 
+                    : 'bg-brand-primary hover:bg-brand-primary/90 active:scale-[0.98]'
+                }`}
               >
                 {isLoading ? (
                   <div className="flex items-center">
@@ -111,15 +106,15 @@ const Login = ({ onSwitch }) => {
               </button>
             </div>
 
-            <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600">
+            <div className="mt-6 text-center">
+              <p className="text-sm text-slate-600">
                 Don't have an account?{' '}
                 <button
                   type="button"
                   onClick={onSwitch}
-                  className="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition-colors duration-200"
+                  className="font-bold text-brand-primary hover:text-brand-primary/80 transition-colors"
                 >
-                  Create one here
+                  Create an account
                 </button>
               </p>
             </div>

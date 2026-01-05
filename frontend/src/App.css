@@ -1,13 +1,25 @@
-.app {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 20px;
-}
+/* App styles are now handled directly with Tailwind classes in JSX components *//* app.css */
+@reference "./index.css";
 
-.section {
-  background: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+@layer components {
+  /* Animation for the login card appearing */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Custom focus ring for brand-primary */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-brand-primary/50 focus:border-brand-primary;
+  }
 }
